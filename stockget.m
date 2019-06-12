@@ -1,0 +1,21 @@
+clc
+StockCode=300191;%????
+if(StockCode==999999)
+    symbol=strcat('sh000001');
+elseif(StockCode>=600000)
+    symbol=strcat('sh',num2str(StockCode));
+else
+    symbol=strcat('sz',num2str(StockCode));
+end
+url2Read=['http://hq.sinajs.cn/list=',symbol];
+s=webread(url2Read);
+result=textscan(s,'%s','delimiter',',');
+result=result{1};
+Name=cell2mat(result(1));%??
+Name=Name(22:end);
+date=result{31};
+OpenPrice=str2double(result{2});
+HighPrice=str2double(result{5});%???????
+LowPrice=str2double(result{6});%??????
+vol=str2double(result{9})/100;
+OpenPrice;
